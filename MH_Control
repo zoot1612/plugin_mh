@@ -25,9 +25,9 @@ d)	Please refer to "3.WIFI CCT bulb communication protocol.xls" to learn protoco
 3.	Internet control protocol description:
 a)	Server need to open programs to create TCP Server to listen to special Port: 8801.
 b)	Configure module internet control function:
-i.	AT+SOCKB= TCP, [Port], [server domain or IP address]\r, such as "AT+SOCKB=TCP,8888,cwcom.vicp.net\r"
-ii.	AT+Z\r
-Restart module
+i.	 AT+SOCKB= TCP, [Port], [server domain or IP address]\r, such as "AT+SOCKB=TCP,8888,cwcom.vicp.net\r"
+ii.	AT+Z\r Restart module 
+
 c)	After restarting, module will create stable TCP connection, IP and Port will same as previous setting. Then, module will send heartbeat packet per 2 minutes: MAC address]+ ","+[MID] 
 (Don't omit ",", such as "ACCF232C147E,HF-LPB100-ZJ011".)
 d)	After got commands, server can save module Mac address and keep connection. According to Mac address, server can send relevant commands of control protocol. Then, it achieved internet control function. Please refer to “3.WIFI CCT bulb communication protocol “
