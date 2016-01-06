@@ -1,0 +1,87 @@
+Communication Protocol User Manual
+ 1.	Configure Wi-Fi parameter:
+a)	Socket protocol: UDP
+b)	Port of phone (local): 48899
+c)	Port of Wi-Fi module (remote): 48899
+d)	Please refer to "2. Wi-Fi configuration communication protocol" to learn protocol’s commands.
+e)	Protocol’s user manual:
+i.	Please use phone to send "HF-A11ASSISTHREAD" by UDP broadcast (broadcast address: xx.xx.xx.255, port: 48899).Module will return a string to phone, format is IP,MAC,MID, such as 10.10.123.3,ACCF232C147E,HF-LPB100-ZJ011.
+
+Notes:
+MID for bulb with internet control function: HF-LPB100-ZJ200
+MID for bulb without internet control function: HF-LPB100-ZJ011
+ii.	After got returned string, send “+ok “ to let module to entre to command mode.
+iii.	After entre to command mode, module can receive AT commands. In additional, phone need to send a command within 1 minute or send "AT+W" to keep connection.
+iv.	Then, send "AT+..." to control Wi-Fi devices, such as commands "AT+WMODE,AT+WSKEY,AT+WSSSID" can connect bulb(s) to router(s).
+v.	Exist command mode by the command "AT+Q"
+vi.	Must keep phone and module in a same LAN. If STA and phone were connected to one router, phone can find all of STA and configure different modules.
+
+2.	Control:
+a)	Socket protocol: TCP
+b)	Phone Port (local): random
+c)	Module Port (remote): 5577
+d)	Please refer to "3.WIFI CCT bulb communication protocol.xls" to learn protocol’s commands.
+
+3.	Internet control protocol description:
+a)	Server need to open programs to create TCP Server to listen to special Port: 8801.
+b)	Configure module internet control function:
+i.	AT+SOCKB= TCP, [Port], [server domain or IP address]\r, such as "AT+SOCKB=TCP,8888,cwcom.vicp.net\r"
+ii.	AT+Z\r
+Restart module
+c)	After restarting, module will create stable TCP connection, IP and Port will same as previous setting. Then, module will send heartbeat packet per 2 minutes: MAC address]+ ","+[MID] 
+(Don't omit ",", such as "ACCF232C147E,HF-LPB100-ZJ011".)
+d)	After got commands, server can save module Mac address and keep connection. According to Mac address, server can send relevant commands of control protocol. Then, it achieved internet control function. Please refer to “3.WIFI CCT bulb communication protocol “
+
+4.	Application Examples (Single Mode):
+a)	Creat UDP, module port: 48899, module IP: 10.10.123.255 Send string: HF-A11ASSISTHREAD, then phone will got a returned value about IP, MAC, MID, such as 10.10.123.3,ACCF232C147E,HF-LPB100-ZJ011.
+b)	Create TCP connection, module port: 5577, module IP: 10.10.123.3 (same as returned IP);
+c)	After connection succeeded, phone can send commands now. For example, if you send "81 8A 8B 96", you will got returned value.
+Please refer to video: video 1_single mode.mp4
+
+5.	Application Example (Internet Control Mode):
+a)	Connect controllers to router
+Please refer to "2. Wi-Fi configuration communication protocol" to configure controllers:
+For example:
+
+Send: HF-A11ASSISTHREAD
+Return: 10.10.123.3, ACCF232BF48A,HF-LPB100-ZJ011
+
+Send: +ok
+
+Send: AT+WSSSID=YanFa2\r  \\YanFa2 is SSID of router 
+
+Send: AT+WSKEY=WPAPSK,TKIP,12345678\r  \\Password of router and encryption algorithm
+
+Send: AT+WMODE=STA\r    \\ Set STA mode
+
+Then, restart controller and connect phone to router;
+b)	Scan modules by router:
+i.	Connect phone to router “YanFa2 “（above configured router）,
+ii.	Create UDP, module port: 48899, module IP: 192.168.2.255, send string "HF-A11ASSISTHREAD", then get module's IP address
+Notice: 192.168.2.255 is broadcast IP
+
+c)	Configure internet control function:
+Please refer "2. Wi-Fi configuration communication protocol" to configure this function:
+Send: HF-A11ASSISTHREAD
+Return: 192.168.2.224, ACCF232BF48A,HF-LPB100-ZJ011
+Send: +ok
+
+\\ Set internet server's IP and TCP port
+Send: AT+SOCKB=TCP,8888,cwcom.vicp.net\r    
+\\Restarting module   
+AT+Z\r
+If setting is right and server's encryption algorithm works well, internet server will receive a connection demand. After connection succeeded, phone will receive a command "ACCF232C147E,HF-LPB100-ZJ011" per 2 minutes. It would be better to return Bytes: 0x00 to keep connection.
+d)	Send control command:
+Send: 81 8A 8B 96  
+Then, module will returns bulb’s status to phone.
+Please refer to video: “Video 2 connect phone to router and internetmode.mp4 “
+
+6.	Protocol command example (CCT version)
+a)	Sync time command： 
+Send: 10 14 0f 01 06 0b 14 0e 02 00 0f 78
+//Sync time：2014-01-06 11:20:14,Tuesday
+b)	Set timer content command):
+Send: 21 f0 00 00 00 0b 1e 00 3c 00 ff 00 00 00 f0 f0 0f 01 06 0c 00 00 00 00 00 00 00 00 0f f0 0f 01 06 0c 05 00 00 61 7c 7c 00 00 f0 0f 00 00 00 00 00 00 00 00 00 00 00 00 00 0f 00 00 00 00 00 00 00 00 00 00 00 00 00 0f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f0 03
+
+ 
+
