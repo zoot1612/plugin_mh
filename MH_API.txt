@@ -93,45 +93,46 @@ Reurn	【0X81】+【8bit device name】+【8bit turn on/off】+【8bit mode valu
 【8bit speed value】means speed value of dynamic model,range:0x01-0x1f,0x01 is the fast
 Status sign:【0XF0】means RGB,【0X0F】means W"	
 		
-RGBW value definition		
-COLOR	R	0x00--0xFF
-	G	0x00--0xFF
-	B	0x00--0xFF
-	W	0x00--0xFF
-	C	0x00--0xFF
-SPEED	SPEED	0x01--0x1F
-KEY	PAUSE	0x20
-	 PLAY	0x21
-	SWITCH	0x22
-	POWER ON	0x23
-	POWER OFF	0x24
-CHANGING	gradual	0x3A
-	jump	0x3B
-	flash	0x3C
-MODE	1:7 colors gradual change	0x25
-	2:red gradual change	0x26
-	3:green gradual change	0x27
-	4:glue gradual change	0x28
-	5:yellow gradual change	0x29
-	6:cyan gradual change	0x2A
-	7:purple gradual change	0x2B
-	8:white gradual change	0x2C
-	9:red and green gradual change	0x2D
-	10:red and blue gradual change	0x2E
-	11:green and blue gradual change	0x2F
-	12:7 colors stroboflash	0x30
-	13:red stroboflash	0x31
-	14:green stroboflash	0x32
-	15:glue stroboflash	0x33
-	16:yellow stroboflash	0x34
-	17:cyan stroboflash	0x35
-	18:purple stroboflash	0x36
-	19:white stroboflash	0x37
-	20:7 colors jump change	0x38
-	custom Mode	0x60
-	static Mode	0x61
-	music Mode	0x62
-	testing Mode	0x63
+			#RGBW value definition		
+COLOR		R					0x00--0xFF
+		G					0x00--0xFF
+		B					0x00--0xFF
+		W					0x00--0xFF
+		C					0x00--0xFF
+SPEED		SPEED					0x01--0x1F
+KEY		PAUSE					0x20
+	 	PLAY					0x21
+		SWITCH					0x22
+		POWER ON				0x23
+		POWER OFF				0x24
+CHANGING	gradual					0x3A
+		jump					0x3B
+		flash					0x3C
+MODE		1:7 colors gradual change		0x25
+		2:red gradual change			0x26
+		3:green gradual change			0x27
+		4:glue gradual change			0x28
+		5:yellow gradual change			0x29
+		6:cyan gradual change			0x2A
+		7:purple gradual change			0x2B
+		8:white gradual change			0x2C
+		9:red and green gradual change		0x2D
+		10:red and blue gradual change		0x2E
+		11:green and blue gradual change	0x2F
+		12:7 colors stroboflash			0x30
+		13:red stroboflash			0x31
+		14:green stroboflash			0x32
+		15:glue stroboflash			0x33
+		16:yellow stroboflash			0x34
+		17:cyan stroboflash			0x35
+		18:purple stroboflash			0x36
+		19:white stroboflash			0x37
+		20:7 colors jump change			0x38
+		custom Mode				0x60
+		static Mode				0x61
+		music Mode				0x62
+		testing Mode				0x63
+	
 Description	check digit:a byte sum which a whole command minus "check digit"	
 
 		
